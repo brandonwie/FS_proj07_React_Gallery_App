@@ -5,6 +5,8 @@ class Search extends Component {
   handleSubmit = e => {
     let userInput = this.query.value;
     e.preventDefault();
+    let path = `/${userInput}`;
+    this.props.history.push(path);
     this.props.changeSearch(userInput);
     console.log(userInput, "- user input");
     e.currentTarget.reset();

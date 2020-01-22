@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import key from "./config";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route } from "react-router-dom";
 import axios from "axios";
 
 //components
@@ -19,12 +19,6 @@ class App extends Component {
     };
   }
 
-  handleChangeSearch = input => {
-    this.setState({ keyword: input });
-    this.performSearch(input);
-    console.log(this.state.keyword, "- current keyword state");
-  };
-
   performSearch = query => {
     console.log(query, "- search query");
     axios
@@ -35,7 +29,7 @@ class App extends Component {
       .then(res => {
         this.setState({
           photos: res.photo,
-          //! Loading Indicator
+          //! for loading...
           loading: false,
         });
       })
@@ -46,22 +40,31 @@ class App extends Component {
     this.performSearch(this.state.keyword);
   }
 
+  handleChangeSearch = input => {
+    this.setState({ keyword: input });
+    this.performSearch(input);
+  };
+
   render() {
     return (
       <BrowserRouter>
         <div className="container">
           <Route
-            path="/"
-            render={() => <Search changeSearch={this.handleChangeSearch} />}
+            to="/"
+            component={Search}
+            changeSearch={this.handleChangeSearch}
           />
-          <Nav changeSearch={this.handleChangeSearch} />
-
+          <Route
+            to="/"
+            changeSearch={this.handleChangeSearch}
+            render={() => <Nav />}
+          />
           {/* press 'REFRESH' button to check loading message */}
           {this.state.loading ? (
             <p>Your Page is Now Loading...</p>
           ) : (
             <Route
-              path="/"
+              path="/:keyword"
               render={() => (
                 <PhotoList
                   data={this.state.photos}

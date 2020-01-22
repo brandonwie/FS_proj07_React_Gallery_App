@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 const Nav = props => {
   const navLinks = title => {
@@ -15,6 +15,7 @@ const Nav = props => {
   return (
     <nav className="main-nav">
       <ul>
+        <Redirect to="/cats" />
         {navLinks("cats")}
         {navLinks("dogs")}
         {navLinks("love")}
