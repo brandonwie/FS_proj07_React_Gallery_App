@@ -5,9 +5,7 @@ const Nav = props => {
   const navLinks = title => {
     return (
       <li>
-        <Link
-          to={`/search/${title}`}
-          onClick={() => props.changeSearch(`${title}`)}>
+        <Link to={`/${title}`} onClick={() => props.changeSearch(`${title}`)}>
           {title}
         </Link>
       </li>

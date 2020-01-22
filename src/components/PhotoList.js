@@ -5,6 +5,7 @@ import NotFound from "./NotFound";
 const PhotoList = props => {
   const results = props.data;
   let photos;
+  // if no search result render 'NotFound'
   if (results.length > 0) {
     photos = results.map(photo => (
       <Photo

@@ -14,19 +14,19 @@ class App extends Component {
     super();
     this.state = {
       photos: [],
-      userInput: "cats",
+      keyword: "cats",
       loading: true,
     };
   }
 
   handleChangeSearch = input => {
-    this.setState({
-      userInput: input,
-    });
+    this.setState({ keyword: input });
     this.performSearch(input);
+    console.log(this.state.keyword, "- current keyword state");
   };
 
-  performSearch = (query = "cats") => {
+  performSearch = query => {
+    console.log(query, "- search query");
     axios
       .get(
         `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${key}&text=${query}&tags=${query}&per_page=16&content_type=4&format=json&nojsoncallback=1`
@@ -43,31 +43,35 @@ class App extends Component {
   };
 
   componentDidMount() {
-    this.performSearch();
+    this.performSearch(this.state.keyword);
   }
 
   render() {
     return (
       <BrowserRouter>
         <div className="container">
-          <Search changeSearch={this.handleChangeSearch} />
+          <Route
+            path="/"
+            render={() => <Search changeSearch={this.handleChangeSearch} />}
+          />
           <Nav changeSearch={this.handleChangeSearch} />
-          <Switch>
-            {this.state.loading ? (
-              <p>Your Page is Now Loading...</p>
-            ) : (
-              <Route
-                path="/"
-                render={() => (
-                  <PhotoList
-                    data={this.state.photos}
-                    input={this.state.userInput}
-                  />
-                )}
-              />
-            )}
-            <Route component={PageNotFound} />
-          </Switch>
+
+          {/* press 'REFRESH' button to check loading message */}
+          {this.state.loading ? (
+            <p>Your Page is Now Loading...</p>
+          ) : (
+            <Route
+              path="/"
+              render={() => (
+                <PhotoList
+                  data={this.state.photos}
+                  input={this.state.keyword}
+                />
+              )}
+            />
+          )}
+          {/* 404 component */}
+          <Route component={PageNotFound} />
         </div>
       </BrowserRouter>
     );
