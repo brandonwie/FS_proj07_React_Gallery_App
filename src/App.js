@@ -56,9 +56,17 @@ class App extends Component {
           <Switch>
             <Route
               path={`/${keyword}`}
-              render={() => (
-                <PhotoList data={photos} input={keyword} isLoading={loading} />
-              )}
+              render={() =>
+                this.state.loading ? (
+                  <p>Your Page is Now Loading...</p>
+                ) : (
+                  <PhotoList
+                    data={photos}
+                    input={keyword}
+                    isLoading={loading}
+                  />
+                )
+              }
             />
             <Route component={PageNotFound} />
           </Switch>

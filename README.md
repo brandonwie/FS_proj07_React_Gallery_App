@@ -1,3 +1,60 @@
+# React Gallery App v1
+
+> A single-page gallery app build with React
+
+[![npm version](https://badgen.net/badge/npm/v6.13.6/green?icon=npm)](https://www.npmjs.com/) [![build](https://badgen.net/badge/build/launched/green?icon=libraries)](https://github.com/brandonwie) [![version](https://badgen.net/badge/version/v1.0.0/green?icon=kofi)](https://github.com/brandonwie)
+
+- Routing: [react-router-dom](https://www.npmjs.com/package/react-router-dom)
+- Fetching Data: [axios](https://www.npmjs.com/package/axios)
+- API: [flickr](https://www.flickr.com/)
+
+## Installation
+
+Mac OS:
+
+```sh
+npm install
+npm start
+```
+
+## Skills
+
+- JavaScript, React
+- Fetch and parse data using axios
+- Dynamic route setting (React Router 4)
+- Using 3rd party API
+
+## Release History
+
+- 1.0.0
+
+  - Live-link: [netlify](https://www.netlify.com/)
+  - FIX: fetching history issue using `withRouter` (thanks to @John Nguyen, Treehouse student on [Slack](https://slack.com/))
+
+- 0.1.0
+
+  - CHANGE: create components, build hierarchy between those (parent-child)
+
+- 0.0.1
+  - Set up with create-react-app
+
+## Exceed Expectation Features
+
+- Add a loading indicator that displays each time the app fetches new data
+
+  - `app.js` line 60
+
+- If no matches are found by the search, display a friendly user message to tell the user there are no matches
+
+  - `NotFound.js` - component
+  - `PhotoList.js` line 17
+
+- Include a 404-like error route that displays a friendly 404 error page when a URL does not match an existing route
+  - `PageNotFound.js` - component
+  - `App.js` line 71
+
+> ## README context from React
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
@@ -45,24 +102,24 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 
 ### Code Splitting
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+This section has moved here: <https://facebook.github.io/create-react-app/docs/code-splitting>
 
 ### Analyzing the Bundle Size
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+This section has moved here: <https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size>
 
 ### Making a Progressive Web App
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+This section has moved here: <https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app>
 
 ### Advanced Configuration
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+This section has moved here: <https://facebook.github.io/create-react-app/docs/advanced-configuration>
 
 ### Deployment
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+This section has moved here: <https://facebook.github.io/create-react-app/docs/deployment>
 
 ### `npm run build` fails to minify
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+This section has moved here: <https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify>
