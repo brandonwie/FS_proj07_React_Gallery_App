@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import key from "./config";
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import axios from "axios";
 
 //components
@@ -19,8 +19,7 @@ class App extends Component {
     };
   }
 
-  performSearch = query => {
-    console.log(query, "- search query");
+  performSearch = (query = "cats") => {
     axios
       .get(
         `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${key}&text=${query}&tags=${query}&per_page=16&content_type=4&format=json&nojsoncallback=1`
@@ -37,7 +36,7 @@ class App extends Component {
   };
 
   componentDidMount() {
-    this.performSearch(this.state.keyword);
+    this.performSearch();
   }
 
   handleChangeSearch = input => {
@@ -46,35 +45,23 @@ class App extends Component {
   };
 
   render() {
+    const { keyword, photos, loading } = this.state;
     return (
       <BrowserRouter>
         <div className="container">
-          <Route
-            to="/"
-            component={Search}
-            changeSearch={this.handleChangeSearch}
-          />
-          <Route
-            to="/"
-            changeSearch={this.handleChangeSearch}
-            render={() => <Nav />}
-          />
-          {/* press 'REFRESH' button to check loading message */}
-          {this.state.loading ? (
-            <p>Your Page is Now Loading...</p>
-          ) : (
+          {/* Redirect when user refresh */}
+          <Search changeSearch={this.handleChangeSearch} />
+          <Nav changeSearch={this.handleChangeSearch} />
+          {/* if keyword does not match to route path, render 404 page */}
+          <Switch>
             <Route
-              path="/:keyword"
+              path={`/${keyword}`}
               render={() => (
-                <PhotoList
-                  data={this.state.photos}
-                  input={this.state.keyword}
-                />
+                <PhotoList data={photos} input={keyword} isLoading={loading} />
               )}
             />
-          )}
-          {/* 404 component */}
-          <Route component={PageNotFound} />
+            <Route component={PageNotFound} />
+          </Switch>
         </div>
       </BrowserRouter>
     );

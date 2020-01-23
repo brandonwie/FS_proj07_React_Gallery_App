@@ -1,11 +1,11 @@
 import React from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Route, Link, Redirect } from "react-router-dom";
 
 const Nav = props => {
   const navLinks = title => {
     return (
       <li>
-        <Link to={`/${title}`} onClick={() => props.changeSearch(`${title}`)}>
+        <Link to={`${title}`} onClick={() => props.changeSearch(`${title}`)}>
           {title}
         </Link>
       </li>
@@ -15,7 +15,7 @@ const Nav = props => {
   return (
     <nav className="main-nav">
       <ul>
-        <Redirect to="/cats" />
+        <Route exact path="/" render={() => <Redirect to="/cats" />} />
         {navLinks("cats")}
         {navLinks("dogs")}
         {navLinks("love")}

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
 import Svg from "./Svg";
 
 class Search extends Component {
@@ -6,9 +7,9 @@ class Search extends Component {
     let userInput = this.query.value;
     e.preventDefault();
     let path = `/${userInput}`;
+    // set path same to user input
     this.props.history.push(path);
     this.props.changeSearch(userInput);
-    console.log(userInput, "- user input");
     e.currentTarget.reset();
   };
 
@@ -30,4 +31,4 @@ class Search extends Component {
   }
 }
 
-export default Search;
+export default withRouter(Search);
