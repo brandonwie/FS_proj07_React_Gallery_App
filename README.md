@@ -1,8 +1,9 @@
 # React Gallery App v1
 
-> A single-page gallery app build with React
-
 [![npm version](https://badgen.net/badge/npm/v6.13.6/green?icon=npm)](https://www.npmjs.com/) [![build](https://badgen.net/badge/build/launched/green?icon=libraries)](https://github.com/brandonwie) [![version](https://badgen.net/badge/version/v1.0.0/green?icon=kofi)](https://github.com/brandonwie)
+
+> A single-page gallery app build with React
+> [Check it NOW](https://brandonwie-react-galley-app.netlify.com/)
 
 - Routing: [react-router-dom](https://www.npmjs.com/package/react-router-dom)
 - Fetching Data: [axios](https://www.npmjs.com/package/axios)
