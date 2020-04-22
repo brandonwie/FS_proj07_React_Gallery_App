@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Nav = props => {
   const navLinks = title => {
@@ -15,7 +15,6 @@ const Nav = props => {
   return (
     <nav className="main-nav">
       <ul>
-        <Route exact path="/" render={() => <Redirect to="/cats" />} />
         {navLinks("cats")}
         {navLinks("dogs")}
         {navLinks("love")}

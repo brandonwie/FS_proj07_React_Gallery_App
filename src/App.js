@@ -10,11 +10,12 @@ import Search from "./components/Search";
 import PageNotFound from "./components/PageNotFound";
 
 class App extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    const keyword = props.location.pathname.slice(1);
     this.state = {
       photos: [],
-      keyword: "cats",
+      keyword: keyword,
       loading: true,
     };
   }
@@ -36,7 +37,11 @@ class App extends Component {
   };
 
   componentDidMount() {
-    this.performSearch();
+    if (this.state.keyword) {
+      this.performSearch(this.state.keyword);
+    } else {
+      this.performSearch();
+    }
   }
 
   handleChangeSearch = input => {
