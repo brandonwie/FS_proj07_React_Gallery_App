@@ -1,84 +1,70 @@
-import React, { Component } from "react";
-import key from "./config";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import key from './config';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  useHistory,
+} from 'react-router-dom';
+import axios from 'axios';
 
 //components
-import Nav from "./components/Nav";
-import PhotoList from "./components/PhotoList";
-import Search from "./components/Search";
-import PageNotFound from "./components/PageNotFound";
+import Nav from './components/Nav';
+import PhotoList from './components/PhotoList';
+import Search from './components/Search';
+import PageNotFound from './components/PageNotFound';
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    const keyword = props.location.pathname.slice(1);
-    this.state = {
-      photos: [],
-      keyword: keyword,
-      loading: true,
-    };
-  }
+const App = props => {
+  const [photos, setPhotos] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [keyword, setKeyword] = useState(props.location.pathname.slice(1));
 
-  performSearch = (query = "cats") => {
+  const performSearch = (query = 'cats') => {
     axios
       .get(
         `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${key}&text=${query}&tags=${query}&per_page=16&content_type=4&format=json&nojsoncallback=1`
       )
       .then(res => res.data.photos)
       .then(res => {
-        this.setState({
-          photos: res.photo,
-          //! for loading...
-          loading: false,
-        });
+        console.log(res);
+        setPhotos(res.photo);
+        setLoading(false);
       })
-      .catch(err => console.log("Error while fetching and parsing data", err));
+      .catch(err => console.log('Error while fetching and parsing data', err));
   };
 
-  componentDidMount() {
-    if (this.state.keyword) {
-      this.performSearch(this.state.keyword);
-    } else {
-      this.performSearch();
-    }
-  }
+  useEffect(() => {
+    performSearch();
+  }, []);
 
-  handleChangeSearch = input => {
-    this.setState({ keyword: input });
-    this.performSearch(input);
+  const handleChangeSearch = input => {
+    setKeyword(input);
+    performSearch(input);
   };
 
-  render() {
-    const { keyword, photos, loading } = this.state;
-    return (
-      <BrowserRouter>
-        <div className="container">
-          {/* Redirect when user refresh */}
-          <Search changeSearch={this.handleChangeSearch} />
-          <Nav changeSearch={this.handleChangeSearch} />
-          {/* if keyword does not match to route path, render 404 page */}
-          <Switch>
-            <Route
-              path={`/${keyword}`}
-              render={() =>
-                this.state.loading ? (
-                  <p>Your Page is Now Loading...</p>
-                ) : (
-                  <PhotoList
-                    data={photos}
-                    input={keyword}
-                    isLoading={loading}
-                  />
-                )
-              }
-            />
-            <Route component={PageNotFound} />
-          </Switch>
-        </div>
-      </BrowserRouter>
-    );
-  }
-}
+  return (
+    <Router>
+      <div className="container">
+        {/* Redirect when user refresh */}
+        <Search changeSearch={handleChangeSearch} />
+        <Nav changeSearch={handleChangeSearch} />
+        {/* if keyword does not match to route path, render 404 page */}
+        <Switch>
+          <Route
+            path={`/${keyword}`}
+            render={() =>
+              loading ? (
+                <p>Your Page is Now Loading...</p>
+              ) : (
+                <PhotoList data={photos} input={keyword} />
+              )
+            }
+          />
+          <Route component={PageNotFound} />
+        </Switch>
+      </div>
+    </Router>
+  );
+};
 
 export default App;
