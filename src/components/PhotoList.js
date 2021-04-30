@@ -19,7 +19,7 @@ const PhotoList = (props) => {
 
   return (
     <div className="photo-container">
-      <h2>'{props.input}' photos</h2>
+      <h2>'{props.input.length === 0 ? 'Cats' : props.input}' photos</h2>
       <ul>{photos}</ul>
     </div>
   );

@@ -15,6 +15,7 @@ import Search from './components/Search';
 import PageNotFound from './components/PageNotFound';
 
 const App = props => {
+  const history = useHistory();
   const [photos, setPhotos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [keyword, setKeyword] = useState(props.location.pathname.slice(1));
@@ -26,21 +27,21 @@ const App = props => {
       )
       .then(res => res.data.photos)
       .then(res => {
-        console.log(res);
         setPhotos(res.photo);
         setLoading(false);
       })
       .catch(err => console.log('Error while fetching and parsing data', err));
   };
 
-  useEffect(() => {
-    performSearch();
-  }, []);
-
   const handleChangeSearch = input => {
     setKeyword(input);
     performSearch(input);
   };
+
+  useEffect(() => {
+    history.push('/cats');
+    performSearch();
+  }, [history]);
 
   return (
     <Router>
